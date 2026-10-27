@@ -22,16 +22,15 @@ while True:
                         print("Income amount must be greater than 0.")
                         continue
                     income.append(new_income)
-                    additional_income = input("Add another income (y/n): ")
-                    while additional_income.lower() == "y":
-                        new_income = float(input("Enter income amount: "))
-                        if new_income <= 0:
-                            print("Income amount must be greater than 0.")
-                            continue
-                        income.append(new_income)
-                        additional_income = input("Add another income (y/n): ")
-                        # Need to handle case where user types anything but y or n
-                    else:
+                    while True:
+                        add_additional_incomes = input("Add another income (y/n): ").strip().lower()
+                        if add_additional_incomes in ["y", "yes"]:
+                            break
+                        elif add_additional_incomes in ["n", "no"]:
+                            break
+                        else:
+                            print("Invalid option. Please select 'y' or 'n'.")
+                    if add_additional_incomes in ["n", "no"]:
                         break
                 except ValueError:
                     print("Please enter a valid income amount.")
