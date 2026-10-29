@@ -61,11 +61,35 @@ while True:
             total_expenses = sum(expenses)
             balance = total_income - total_expenses
             warning = "You have a negative balance. Consider adding more income or reducing expenses."
-            print("You selected View Summary")
+            print("You selected View Summary\n")
             if not income and not expenses:
                 print("Nothing to summarize yet.")
-            if income or expenses:
-                print(f"Total income: ${total_income:.2f}")
+            if income and not expenses:
+                count = 0
+                for earning in income:
+                    count += 1
+                    print(f"Income Source {count}: ${earning:.2f}")
+                print(f"\nTotal income: ${total_income:.2f}")
+                print(f"Total expenses: ${total_expenses:.2f}")
+                print(f"Total balance: ${balance:.2f} {warning if balance < 0 else ''}\n")
+            if expenses and not income:
+                count = 0
+                for expense in expenses:
+                    count += 1
+                    print(f"Expense Source {count}: ${expense:.2f}")
+                print(f"\nTotal income: ${total_income:.2f}")
+                print(f"Total expenses: ${total_expenses:.2f}")
+                print(f"Total balance: ${balance:.2f} {warning if balance < 0 else ''}")
+            if income and expenses:
+                income_count = 0
+                expense_count = 0
+                for earning in income:
+                    income_count += 1
+                    print(f"Income Source {income_count}: ${earning:.2f}")
+                for expense in expenses:
+                    expense_count += 1
+                    print(f"Expense Source {expense_count}: ${expense:.2f}")
+                print(f"\nTotal income: ${total_income:.2f}")
                 print(f"Total expenses: ${total_expenses:.2f}")
                 print(f"Total balance: ${balance:.2f} {warning if balance < 0 else ''}")
         elif choice == 4:
