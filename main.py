@@ -1,5 +1,17 @@
-print("Track your spending\n")
 
+def get_yes_no(prompt):
+    while True:
+        response = input(prompt).strip().lower()
+        if response == "yes":
+            return True
+        elif response == "no":
+            return False
+        else:
+            print("Invalid option. Please select 'yes' or 'no'.")
+
+
+
+print("Track your spending\n")
 print("1. Add Income")
 print("2. Add Expense")
 print("3. View Summary")
@@ -23,15 +35,8 @@ while True:
                         print("Income amount must be greater than 0.")
                         continue
                     income.append(new_income)
-                    while True:
-                        add_additional_incomes = input("Add another income (y/n): ").strip().lower()
-                        if add_additional_incomes in ["y", "yes"]:
-                            break
-                        elif add_additional_incomes in ["n", "no"]:
-                            break
-                        else:
-                            print("Invalid option. Please select 'y' or 'n'.")
-                    if add_additional_incomes in ["n", "no"]:
+                    # if they did not say yes, then break
+                    if not get_yes_no("Add another income (yes/no): "):
                         break
                 except ValueError:
                     print("Please enter a valid income amount. (example: 100.00)")
@@ -44,15 +49,8 @@ while True:
                         print("Expense amount must be greater than 0.")
                         continue
                     expenses.append(add_expense)
-                    while True:
-                        add_additional_expense = input("Add another expense (y/n): ").strip().lower()
-                        if add_additional_expense in ["y", "yes"]:
-                            break
-                        elif add_additional_expense in ["n", "no"]:
-                            break
-                        else:
-                            print("Invalid option. Please select 'y' or 'n'.")
-                    if add_additional_expense in ["n", "no"]:
+                    # if they did not say yes, then break
+                    if not get_yes_no("Add another expense (yes/no): "):
                         break
                 except ValueError:
                     print("Please enter a valid expense amount. (example: 100.00)")
