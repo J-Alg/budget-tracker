@@ -9,7 +9,16 @@ def get_yes_no(prompt):
         else:
             print("Invalid option. Please select 'yes' or 'no'.")
 
-
+def get_amount(prompt):
+    while True:
+        try:
+            source_amount = float(input(prompt))
+            if source_amount <= 0:
+                print("Amount must be greater than 0.")
+                continue
+            return source_amount
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
 
 print("Track your spending\n")
 print("1. Add Income")
@@ -29,31 +38,19 @@ while True:
         elif choice == 1:
             print("You selected Add Income")
             while True:
-                try:
-                    new_income = float(input("Enter income amount: "))
-                    if new_income <= 0:
-                        print("Income amount must be greater than 0.")
-                        continue
-                    income.append(new_income)
-                    # if they did not say yes, then break
-                    if not get_yes_no("Add another income (yes/no): "):
-                        break
-                except ValueError:
-                    print("Please enter a valid income amount. (example: 100.00)")
+                income_amount = get_amount("Enter income amount: ")
+                income.append(income_amount)
+                # if they did not say yes, then break
+                if not get_yes_no("Add another income (yes/no): "):
+                    break
         elif choice == 2:
             print("You selected Add Expense")
             while True:
-                try:
-                    add_expense = float(input("Enter expense amount: "))
-                    if add_expense <= 0:
-                        print("Expense amount must be greater than 0.")
-                        continue
-                    expenses.append(add_expense)
-                    # if they did not say yes, then break
-                    if not get_yes_no("Add another expense (yes/no): "):
-                        break
-                except ValueError:
-                    print("Please enter a valid expense amount. (example: 100.00)")
+                expense_amount = get_amount("Enter expense amount: ")
+                expenses.append(expense_amount)
+                # if they did not say yes, then break
+                if not get_yes_no("Add another expense (yes/no): "):
+                    break
         elif choice == 3:
             total_income = sum(income)
             total_expenses = sum(expenses)
