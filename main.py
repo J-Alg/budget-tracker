@@ -19,6 +19,23 @@ def get_amount(prompt):
             return source_amount
         except ValueError:
             print("Invalid input. Please enter a valid number.")
+def summary(income_list, expenses_list):
+    income_sum = sum(income_list)
+    expenses_sum = sum(expenses_list)
+    balance_amount = income_sum - expenses_sum
+    print("You selected Summary")
+
+    if not income_list and not expenses_list:
+        print("Nothing to summarize.")
+        return
+    for count, earning in enumerate(income_list, start=1):
+        print(f"Income Source {count}: ${earning:.2f}")
+    for count, amount in enumerate(expenses_list, start=1):
+        print(f'Expenses Source {count}: ${amount:.2f}')
+    print(f"\nTotal income: ${float(income_sum):.2f}")
+    print(f"Total expenses: ${float(expenses_sum):.2f}")
+    print(f"Total balance: ${float(balance_amount):.2f}")
+
 
 print("Track your spending\n")
 print("1. Add Income")
@@ -52,41 +69,7 @@ while True:
                 if not get_yes_no("Add another expense (yes/no): "):
                     break
         elif choice == 3:
-            total_income = sum(income)
-            total_expenses = sum(expenses)
-            balance = total_income - total_expenses
-            warning = "You have a negative balance. Consider adding more income or reducing expenses."
-            print("You selected View Summary\n")
-            if not income and not expenses:
-                print("Nothing to summarize yet.")
-            if income and not expenses:
-                count = 0
-                for earning in income:
-                    count += 1
-                    print(f"Income Source {count}: ${earning:.2f}")
-                print(f"\nTotal income: ${total_income:.2f}")
-                print(f"Total expenses: ${total_expenses:.2f}")
-                print(f"Total balance: ${balance:.2f} {warning if balance < 0 else ''}\n")
-            if expenses and not income:
-                count = 0
-                for expense in expenses:
-                    count += 1
-                    print(f"Expense Source {count}: ${expense:.2f}")
-                print(f"\nTotal income: ${total_income:.2f}")
-                print(f"Total expenses: ${total_expenses:.2f}")
-                print(f"Total balance: ${balance:.2f} {warning if balance < 0 else ''}")
-            if income and expenses:
-                income_count = 0
-                expense_count = 0
-                for earning in income:
-                    income_count += 1
-                    print(f"Income Source {income_count}: ${earning:.2f}")
-                for expense in expenses:
-                    expense_count += 1
-                    print(f"Expense Source {expense_count}: ${expense:.2f}")
-                print(f"\nTotal income: ${total_income:.2f}")
-                print(f"Total expenses: ${total_expenses:.2f}")
-                print(f"Total balance: ${balance:.2f} {warning if balance < 0 else ''}")
+            summary(income, expenses)
         elif choice == 4:
             print("You selected Quit")
             break
