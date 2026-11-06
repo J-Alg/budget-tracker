@@ -19,22 +19,31 @@ def get_amount(prompt):
             return source_amount
         except ValueError:
             print("Invalid input. Please enter a valid number.")
+
 def summary(income_list, expenses_list):
-    income_sum = sum(income_list)
-    expenses_sum = sum(expenses_list)
+    income_sum = sum([i.get("income_amount") for i in income_list])
+    expenses_sum = sum(e.get("expense_amount") for e in expenses_list)
     balance_amount = income_sum - expenses_sum
     print("You selected Summary")
 
     if not income_list and not expenses_list:
         print("Nothing to summarize.")
         return
-    for count, earning in enumerate(income_list, start=1):
-        print(f"Income Source {count}: ${earning:.2f}")
-    for count, amount in enumerate(expenses_list, start=1):
-        print(f'Expenses Source {count}: ${amount:.2f}')
+    for earning in income_list:
+        print(f"Income: {earning.get('income_source_name')} - ${earning.get('income_amount'):.2f}")
+    for amount in expenses_list:
+        print(f'Expenses: {amount.get("expense_category")} - ${amount.get("expense_amount"):.2f}')
     print(f"\nTotal income: ${float(income_sum):.2f}")
     print(f"Total expenses: ${float(expenses_sum):.2f}")
     print(f"Total balance: ${float(balance_amount):.2f}")
+
+def get_transaction(type_name):
+    while True:
+        transaction = input(type_name).upper().strip()
+        if transaction:
+            return transaction
+        else:
+            print("Invalid input. Please enter a valid transaction name.")
 
 
 print("Track your spending\n")
@@ -56,7 +65,8 @@ while True:
             print("You selected Add Income")
             while True:
                 income_amount = get_amount("Enter income amount: ")
-                income.append(income_amount)
+                income_source_name = get_transaction("Enter income source name (e.g. Salary, Bonus, etc.): ")
+                income.append({"income_amount": income_amount, "income_source_name": income_source_name})
                 # if they did not say yes, then break
                 if not get_yes_no("Add another income (yes/no): "):
                     break
@@ -64,7 +74,8 @@ while True:
             print("You selected Add Expense")
             while True:
                 expense_amount = get_amount("Enter expense amount: ")
-                expenses.append(expense_amount)
+                expense_category = get_transaction("Enter expense category (e.g. Food, Rent, etc.): ")
+                expenses.append({"expense_amount": expense_amount, "expense_category": expense_category})
                 # if they did not say yes, then break
                 if not get_yes_no("Add another expense (yes/no): "):
                     break
