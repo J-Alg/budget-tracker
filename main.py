@@ -1,3 +1,8 @@
+def menu():
+    print("1. Income")
+    print("2. Expenses")
+    print("3. Summary")
+    print("4. Quit")
 
 def get_yes_no(prompt):
     while True:
@@ -46,43 +51,48 @@ def get_transaction(type_name):
             print("Invalid input. Please enter a valid transaction name.")
 
 
-print("Track your spending\n")
-print("1. Add Income")
-print("2. Add Expense")
-print("3. View Summary")
-print("4. Quit")
 
-income = [] # Later we can store income in a dictionary. Giving the user the option to give income source name and amount
-expenses = [] # Later we can store expenses in a dictionary. Giving the user the option to give expense category and amount
+income = []
+expenses = []
 
+menu()
 while True:
     choice = input("\nPlease select an option (1-4): ")
     try:
+        # Makes sure the input is an integer. If not, ValueError is raised
         choice = int(choice)
+        # Check if the choice is within the valid range
         if choice < 1 or choice > 4:
             print("Invalid option. Please select a valid option (1-4).")
         elif choice == 1:
-            print("You selected Add Income")
             while True:
+                # Ask user for income amount
                 income_amount = get_amount("Enter income amount: ")
+                # Ask user for income source name
                 income_source_name = get_transaction("Enter income source name (e.g. Salary, Bonus, etc.): ")
+                # Append income and source name to the income list
                 income.append({"income_amount": income_amount, "income_source_name": income_source_name})
                 # if they did not say yes, then break
                 if not get_yes_no("Add another income (yes/no): "):
                     break
         elif choice == 2:
-            print("You selected Add Expense")
             while True:
+                # Ask user for expense amount
                 expense_amount = get_amount("Enter expense amount: ")
+                # Ask user for expense category
                 expense_category = get_transaction("Enter expense category (e.g. Food, Rent, etc.): ")
+                # Append expense amount and category to the expenses list
                 expenses.append({"expense_amount": expense_amount, "expense_category": expense_category})
                 # if they did not say yes, then break
                 if not get_yes_no("Add another expense (yes/no): "):
                     break
         elif choice == 3:
+            # Show the user a breakdown of their income and expenses while also displaying the
+            # total income and expenses and balance after expenses
             summary(income, expenses)
         elif choice == 4:
-            print("You selected Quit")
+            # End program
+            print("Goodbye!")
             break
     except ValueError:
         print("Invalid option. Please select a valid option (1-4).")
