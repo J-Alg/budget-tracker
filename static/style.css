@@ -1,0 +1,156 @@
+:root {
+    --bg-page: #f8fafc;
+    --bg-card: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border-subtle: #e2e8f0;
+
+    --brand-primary: #6366f1;
+    --brand-hover: #4f46e5;
+
+    --income-color: #10b981;
+    --income-bg: #ecfdf5;
+
+    --expense-color: #f43f5e;
+    --expense-bg: #fff1f2;
+
+    --summary-gradient: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+body {
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.summary-card {
+    background: var(--summary-gradient);
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.2);
+}
+
+.summary-card h2,
+.summary-card p {
+    color: #f1f5f9;
+}
+
+button {
+    background-color: var(--brand-primary);
+    color: #ffffff;
+}
+
+button:hover {
+    background-color: var(--brand-hover);
+}
+
+.income-item {
+    background-color: var(--income-bg);
+    border-left: 4px solid var(--income-color);
+    color: var(--text-main);
+}
+
+.expense-item {
+    background-color: var(--expense-bg);
+    border-left: 4px solid var(--expense-color);
+    color: var(--text-main);
+}
+/* Center the page container */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* The Responsive 2-Column Flexbox Layout */
+.columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+/* The Individual Cards */
+.card {
+    flex: 1 1 340px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* Clean list styling */
+ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 24px;
+}
+
+li {
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* --- Form Layout & Typography --- */
+form {
+    margin-top: 16px;
+}
+
+label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    margin-top: 12px;
+}
+
+/* --- Clean, Full-Width Inputs --- */
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    background-color: #f8fafc;
+    box-sizing: border-box; /* Crucial: Keeps padding inside the card! */
+    transition: all 0.2s ease;
+}
+
+/* Subtle glow when user clicks into an input field */
+input[type="text"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--brand-primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* --- Polished Action Buttons --- */
+button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px;
+    background-color: var(--brand-primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background-color: var(--brand-hover);
+}
+
+button:active {
+    transform: scale(0.98); /* Subtle click-press effect */
+}
