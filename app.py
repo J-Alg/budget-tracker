@@ -2,17 +2,31 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+import json
+from pathlib import Path
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-income = []
+def save_data(data, filename="data.json", file_dir="assets"):
+    file_path = Path(file_dir) / filename
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+    with file_path.open("w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4)
 
-expenses = []
+def load_data(filename="data.json", file_dir="assets"):
+    file_path = Path(file_dir) / filename
+    if not file_path.exists():
+        return {"income": [], "expenses": []}
+    with file_path.open("r") as f:
+        return json.load(f)
 
 @app.get("/")
 def read_root(request: Request):
+    data = load_data()
+    income = data["income"]
+    expenses = data["expenses"]
     income_sum = sum([i.get("income_amount", 0) for i in income])
     expenses_sum = sum([e.get("expense_amount", 0) for e in expenses])
     balance = income_sum - expenses_sum
@@ -31,10 +45,14 @@ def read_root(request: Request):
 
 @app.post("/add-income")
 def add_income(income_source_name: str = Form(...), amount: float = Form(...)):
-    income.append({"income_amount": amount, "income_source_name": income_source_name.strip().upper()})
+    data = load_data()
+    data["income"].append({"income_amount": amount, "income_source_name": income_source_name.strip().upper()})
+    save_data(data)
     return RedirectResponse(url="/", status_code=303)
 
 @app.post("/add-expense")
 def add_expense(expense_category: str = Form(...), expense_amount: float = Form(...)):
-    expenses.append({"expense_amount": expense_amount, "expense_category": expense_category.strip().upper()})
+    data = load_data()
+    data["expenses"].append({"expense_amount": expense_amount, "expense_category": expense_category.strip().upper()})
+    save_data(data)
     return RedirectResponse(url="/", status_code=303)

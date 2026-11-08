@@ -1,0 +1,26 @@
+{
+    "income": [
+        {
+            "income_amount": 1900.0,
+            "income_source_name": "EC BARTON"
+        },
+        {
+            "income_amount": 1900.0,
+            "income_source_name": "VA"
+        }
+    ],
+    "expenses": [
+        {
+            "expense_amount": 32.89,
+            "expense_category": "WALMART"
+        },
+        {
+            "expense_amount": 78.0,
+            "expense_category": "TARGET"
+        },
+        {
+            "expense_amount": 1000.0,
+            "expense_category": "BESTBUY"
+        }
+    ]
+}
