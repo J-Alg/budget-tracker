@@ -28,7 +28,16 @@
                 <h2>Income Sources</h2>
                 <ul>
                     {% for item in income_list %}
-                    <li>{{ item.income_source_name }} - {{ "%.2f"|format(item.income_amount) }}</li>
+                    <li>
+                        <span>{{ item.income_source_name }}</span>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <span>{{ "%.2f"|format(item.income_amount) }}</span>
+                            <form action="/delete-income/{{ loop.index0 }}" method="post">
+                                <button class="trash-can" type="submit">DEL</button>
+                            </form>
+                        </div>
+
+                    </li>
                     {% else %}
                     <li>No income sources were found</li>
                     {% endfor %}
@@ -48,7 +57,15 @@
                 <h2>Expenses</h2>
                 <ul>
                     {% for expense in expenses_list %}
-                    <li>{{ expense.expense_category }} - {{ "%.2f"|format(expense.expense_amount) }}</li>
+                    <li>
+                        <span>{{ expense.expense_category }}</span>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                        <span>{{ "%.2f"|format(expense.expense_amount) }}</span>
+                        <form action="/delete-expense/{{ loop.index0 }}" method="post">
+                            <button class="trash-can" type="submit">DEL</button>
+                        </form>
+                        </div>
+                    </li>
                     {% else %}
                     <li>No expenses were found</li>
                     {% endfor %}

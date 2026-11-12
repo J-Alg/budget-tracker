@@ -139,3 +139,25 @@ button:hover {
 button:active {
     transform: scale(0.98);
 }
+
+.trash-can {
+    width: auto;
+    margin-top: 1rem;
+    padding: 0.50rem 0.5rem;
+    font-size: 0.75rem;
+    background-color: var(--bg-page);
+    margin-bottom: 1rem;
+    transition: background-color 0.15s ease, box-shadow 0.1s ease;
+    color: var(--text-muted);
+    border: 1px solid var(--border-subtle);
+}
+
+.trash-can:hover {
+    background-color: var(--color-expense);
+    color: #ffffff;
+    border: 1px solid var(--color-expense);
+}
+
+.trash-can:active {
+    transform: scale(0.98);
+}

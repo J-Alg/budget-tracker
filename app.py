@@ -56,3 +56,19 @@ def add_expense(expense_category: str = Form(...), expense_amount: float = Form(
     data["expenses"].append({"expense_amount": expense_amount, "expense_category": expense_category.strip().upper()})
     save_data(data)
     return RedirectResponse(url="/", status_code=303)
+
+@app.post("/delete-income/{item_index}")
+def delete_income(item_index: int):
+    data = load_data()
+    if 0 <= item_index < len(data["income"]):
+        del data["income"][item_index]
+        save_data(data)
+    return RedirectResponse(url="/", status_code=303)
+
+@app.post("/delete-expense/{item_index}")
+def delete_expense(item_index: int):
+    data = load_data()
+    if 0 <= item_index < len(data["expenses"]):
+        del data["expenses"][item_index]
+        save_data(data)
+    return RedirectResponse(url="/", status_code=303)
